@@ -24,7 +24,7 @@ export class Player extends Entity {
 
         // Per second
         this.accel = 1;
-        this.maxSpeed = 3;
+        this.maxSpeed = 5;
         this.minDist = 2;
     }
 

@@ -23,8 +23,10 @@ export default class World {
 	}
 
 	onMouseClick(clickPos) {
-		this.player.midX = clickPos.x + this.cameraPos.x;
-		this.player.midY = clickPos.y + this.cameraPos.y;
+		this.player.desiredPoint = {
+			x: clickPos.x + this.cameraPos.x,
+			y: clickPos.y + this.cameraPos.y
+		};
 	}
 
 	updateCamera() {
