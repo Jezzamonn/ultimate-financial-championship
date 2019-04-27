@@ -1,4 +1,5 @@
 import Controller from './controller.js';
+import { PlayerState } from './player-state.js';
 
 let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
@@ -7,8 +8,8 @@ let context = canvas.getContext('2d');
 const SIZE = 500;
 
 let scale = 1;
-let lastTime;
-let controller;
+let lastTime = null;
+let controller = null;
 
 function init() {
 	lastTime = Date.now();
@@ -19,6 +20,14 @@ function init() {
 	window.addEventListener('resize', handleResize);
 	// Kick off the update loop
 	window.requestAnimationFrame(everyFrame);
+
+	document.querySelector('#money-button').addEventListener('click', () => {
+		controller.playerState.money += 1;
+	})
+	document.querySelector('#dividend-button').addEventListener('click', () => {
+		controller.playerState.money -= 10;
+		controller.playerState.dividends += 1;
+	})
 }
 
 // TODO: Make tweak this to allow frame skipping for slow computers. Maybe.
