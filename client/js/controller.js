@@ -21,16 +21,18 @@ export default class Controller {
 		this.playerState.update(dt);
 
 		this.player.update();
+
+		this.updateCamera();
 	}
 
 	onMouseClick(clickPos) {
-		this.player.pos.x = clickPos.x;
-		this.player.pos.y = clickPos.y;
+		this.player.pos.x = clickPos.x + this.cameraPos.x;
+		this.player.pos.y = clickPos.y + this.cameraPos.y;
 	}
 
 	updateCamera() {
-		this.cameraPos.x += 0.1 * (this.player.pos.x - this.cameraPos.x);
-		this.cameraPos.y += 0.1 * (this.player.pos.y - this.cameraPos.y);
+		this.cameraPos.x += 0.02 * (this.player.pos.x - this.cameraPos.x);
+		this.cameraPos.y += 0.02 * (this.player.pos.y - this.cameraPos.y);
 	}
 
 	/**
@@ -40,7 +42,7 @@ export default class Controller {
 	render(context) {
 		context.save();
 
-		context.translate(this.cameraPos.x, this.cameraPos.y);
+		context.translate(-this.cameraPos.x, -this.cameraPos.y);
 
 		this.player.render(context);
 
