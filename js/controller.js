@@ -1,3 +1,5 @@
+import { rgb } from "./util";
+
 export default class Controller {
 
 	constructor() {
@@ -10,15 +12,18 @@ export default class Controller {
 		this.animAmt %= 1;
 	}
 
+	/**
+	 * 
+	 * @param {CanvasRenderingContext2D} context 
+	 */
 	render(context) {
 		context.beginPath();
-		context.fillStyle = 'black';
-		context.moveTo(0, 0);
-		context.arc(0, 0, 100, 0, 2 * Math.PI * this.animAmt);
-		context.fill();
-
-		context.scale(10, 10);
-		context.fillText(this.period * this.animAmt, 0, 0);
+		context.fillStyle = 'blue'; var a = rgb(
+			Math.floor(Math.random() * 255),
+			Math.floor(Math.random() * 255),
+			Math.floor(Math.random() * 255),
+		);
+		context.fillRect(-0.5 * context.canvas.width, -0.5 * context.canvas.height, context.canvas.width, context.canvas.height);
 	}
 
 }
