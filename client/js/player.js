@@ -8,6 +8,8 @@ export class Player extends Entity {
     constructor(world) {
         super();
 
+        this.name = '';
+
         this.world = world;
 
         this.state = new PlayerState();
@@ -18,7 +20,7 @@ export class Player extends Entity {
         this.animCount = 0;
         this.animPeriod = 1;
 
-        this.desiredPoint = {x: 30, y: 30};
+        this.desiredPoint = null;
         this.velX = 0;
         this.velY = 0;
 
@@ -26,6 +28,8 @@ export class Player extends Entity {
         this.accel = 1;
         this.maxSpeed = 5;
         this.minDist = 2;
+
+        this.minChallengeDist = 10;
     }
 
     update(dt) {
@@ -66,6 +70,15 @@ export class Player extends Entity {
     }
 
     playerUpdate(dt) {
+        this.getCoins();
+
+        this.tryShowChallengeUI();
+
+        // Update monies
+        this.state.update(dt);
+    }
+
+    getCoins() {
         for (let i = this.world.coins.length - 1; i >= 0; i--) {
             const coin = this.world.coins[i];
             if (this.isTouching(coin)) {
@@ -74,7 +87,25 @@ export class Player extends Entity {
                 this.state.updateUI();
             }
         }
-        this.state.update(dt);
+    }
+
+    tryShowChallengeUI() {
+        let closestPlayer = null;
+        let closestDist = Infinity;
+        for (const player of this.world.others) {
+            const dist = this.sqGroundDistBetween(player)
+            if (dist < closestDist) {
+                closestPlayer = player;
+                closestDist = dist;
+            }
+        }
+
+        if (closestDist < this.minChallengeDist * this.minChallengeDist) {
+            document.querySelector('#nearby').innerText = closestPlayer.name;
+        }
+        else {
+            document.querySelector('#nearby').innerText = '';
+        }
     }
 
     /**

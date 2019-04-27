@@ -67,4 +67,10 @@ export class Entity {
             this.minY < entity.maxY && entity.minY < this.maxY
         );
     }
+
+    sqGroundDistBetween(entity) {
+        const dx = this.midX - entity.midX;
+        const dy = this.maxY - entity.maxY;
+        return (dx * dx + dy * dy);
+    }
 }

@@ -44,5 +44,7 @@
     "webpack": "^3.11.0",
     "webpack-node-externals": "^1.7.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "chance": "^1.0.18"
+  }
 }
