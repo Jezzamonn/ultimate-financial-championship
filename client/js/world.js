@@ -1,10 +1,13 @@
 import { Player } from "./player";
 import { Coin } from "./coin";
 import Chance from "chance";
+import CanvasManager from "./canvasManager";
 
 export default class World {
 
 	constructor() {
+		this.canvasManager = new CanvasManager('#world-canvas');
+
         this.coins = [];
 		this.others = [];
 		this.player = new Player(this);
@@ -61,7 +64,9 @@ export default class World {
 	 * 
 	 * @param {!CanvasRenderingContext2D} context 
 	 */
-	render(context) {
+	render() {
+		const context = this.canvasManager.context;
+		
 		context.save();
 
 		context.translate(-this.cameraPos.x, -this.cameraPos.y);

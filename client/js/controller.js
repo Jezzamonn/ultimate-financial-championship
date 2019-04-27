@@ -22,4 +22,8 @@ export default class Controller {
 		this.world.render(context);
 	}
 
+	resize() {
+		this.world.canvasManager.resize();
+	}
+
 }

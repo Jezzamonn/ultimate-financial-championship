@@ -27,9 +27,11 @@ export class Player extends Entity {
         // Per second
         this.accel = 1;
         this.maxSpeed = 5;
+        this.stopSpeed = 0.1;
         this.minDist = 2;
+        this.speedDamp = 0.8;
 
-        this.minChallengeDist = 10;
+        this.minChallengeDist = 50;
     }
 
     update(dt) {
@@ -46,18 +48,14 @@ export class Player extends Entity {
     }
 
     dampSpeed(dt) {
-        this.velX *= 0.9;
-        this.velY *= 0.9;
+        this.velX *= this.speedDamp;
+        this.velY *= this.speedDamp;
     }
 
     moveTowardsPoint(dt) {
         const dx = this.desiredPoint.x - this.midX;
         const dy = this.desiredPoint.y - this.maxY;
-
         const sqDist = dx * dx + dy * dy;
-        if (sqDist < this.minDist * this.minDist) {
-            this.desiredPoint = null;
-        }
 
         this.velX += dt * this.accel * dx;
         this.velY += dt * this.accel * dy;
@@ -66,6 +64,10 @@ export class Player extends Entity {
         if (speed > this.maxSpeed) {
             this.velX *= this.maxSpeed / speed;
             this.velY *= this.maxSpeed / speed;
+        }
+
+        if (sqDist < this.minDist * this.minDist && speed < this.stopSpeed * this.stopSpeed) {
+            this.desiredPoint = null;
         }
     }
 
