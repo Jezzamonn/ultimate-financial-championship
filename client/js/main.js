@@ -9,6 +9,7 @@ const SIZE = 500;
 
 let scale = 1;
 let lastTime = null;
+/** @type {!Controller} */
 let controller = null;
 
 function init() {
@@ -23,11 +24,17 @@ function init() {
 
 	document.querySelector('#money-button').addEventListener('click', () => {
 		controller.playerState.money += 1;
-	})
+		controller.playerState.updateUI();
+	});
 	document.querySelector('#dividend-button').addEventListener('click', () => {
 		controller.playerState.money -= 10;
 		controller.playerState.dividends += 1;
-	})
+		controller.playerState.updateUI();
+	});
+
+	document.addEventListener('mousedown', (evt) => {
+		controller.onMouseClick(getClickCoordinates(evt))
+	});
 }
 
 // TODO: Make tweak this to allow frame skipping for slow computers. Maybe.
@@ -42,6 +49,13 @@ function update() {
 	let dt = (curTime - lastTime) / 1000;
 	controller.update(dt);
 	lastTime = curTime;
+}
+
+function getClickCoordinates(evt) {
+	return {
+		x: evt.clientX - window.innerWidth / 2,
+		y: evt.clientY - window.innerHeight / 2
+	}
 }
 
 function render() {
