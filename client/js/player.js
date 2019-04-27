@@ -17,11 +17,52 @@ export class Player extends Entity {
 
         this.animCount = 0;
         this.animPeriod = 1;
+
+        this.desiredPoint = {x: 30, y: 30};
+        this.velX = 0;
+        this.velY = 0;
+
+        // Per second
+        this.accel = 1;
+        this.maxSpeed = 3;
+        this.minDist = 2;
     }
 
     update(dt) {
         this.animCount += dt / this.animPeriod;
         this.animCount %= 1;
+
+        if (this.desiredPoint) {
+            this.moveTowardsPoint(dt);
+        }
+        this.dampSpeed();
+
+        this.x += this.velX;
+        this.y += this.velY;
+    }
+
+    dampSpeed(dt) {
+        this.velX *= 0.9;
+        this.velY *= 0.9;
+    }
+
+    moveTowardsPoint(dt) {
+        const dx = this.desiredPoint.x - this.midX;
+        const dy = this.desiredPoint.y - this.maxY;
+
+        const sqDist = dx * dx + dy * dy;
+        if (sqDist < this.minDist * this.minDist) {
+            this.desiredPoint = null;
+        }
+
+        this.velX += dt * this.accel * dx;
+        this.velY += dt * this.accel * dy;
+
+        const speed = Math.sqrt(this.velX * this.velX + this.velY * this.velY);
+        if (speed > this.maxSpeed) {
+            this.velX *= this.maxSpeed / speed;
+            this.velY *= this.maxSpeed / speed;
+        }
     }
 
     playerUpdate(dt) {
