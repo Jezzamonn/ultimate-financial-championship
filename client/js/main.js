@@ -23,13 +23,13 @@ function init() {
 	window.requestAnimationFrame(everyFrame);
 
 	document.querySelector('#money-button').addEventListener('click', () => {
-		controller.playerState.money += 1;
-		controller.playerState.updateUI();
+		controller.world.player.state.money += 1;
+		controller.world.player.state.updateUI();
 	});
 	document.querySelector('#dividend-button').addEventListener('click', () => {
-		controller.playerState.money -= 10;
-		controller.playerState.dividends += 1;
-		controller.playerState.updateUI();
+		controller.world.player.state.money -= 10;
+		controller.world.player.state.dividends += 1;
+		controller.world.player.state.updateUI();
 	});
 
 	document.addEventListener('mousedown', (evt) => {

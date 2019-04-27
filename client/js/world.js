@@ -4,7 +4,7 @@ import { Coin } from "./coin";
 export default class World {
 
 	constructor() {
-        this.player = new Player();
+        this.player = new Player(this);
         this.coins = [];
         for (let i = 0; i < 10; i ++) {
             const coin = new Coin();
@@ -17,6 +17,7 @@ export default class World {
 
 	update(dt) {
 		this.player.update(dt);
+		this.player.playerUpdate(dt);
 
 		this.updateCamera();
 	}

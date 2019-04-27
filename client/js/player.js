@@ -1,13 +1,16 @@
 import { drawSprite } from "./sprites";
 import { SCALE } from "./constants";
 import { Entity } from "./entity";
+import { PlayerState } from "./player-state";
 
 export class Player extends Entity {
 
-    constructor() {
+    constructor(world) {
         super();
 
-        this.state = null; // player state thing
+        this.world = world;
+
+        this.state = new PlayerState();
 
         this.width = SCALE * 8;
         this.height = SCALE * 8;
@@ -19,6 +22,18 @@ export class Player extends Entity {
     update(dt) {
         this.animCount += dt / this.animPeriod;
         this.animCount %= 1;
+    }
+
+    playerUpdate(dt) {
+        for (let i = this.world.coins.length - 1; i >= 0; i--) {
+            const coin = this.world.coins[i];
+            if (this.isTouching(coin)) {
+                this.world.coins.splice(i, 1);
+                this.state.money += 1;
+                this.state.updateUI();
+            }
+        }
+        this.state.update(dt);
     }
 
     /**
