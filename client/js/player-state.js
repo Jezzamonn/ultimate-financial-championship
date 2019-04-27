@@ -19,7 +19,10 @@ export class PlayerState {
 
     tick() {
         this.money += this.dividends;
-
+        this.updateUI();
+    }
+    
+    updateUI() {
         document.querySelector('#money').innerText = this.money;
         document.querySelector('#dividends').innerText = this.dividends;
     }
