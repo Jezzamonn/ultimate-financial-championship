@@ -28,17 +28,6 @@ const client = {
     devtool: 'source-map'
 }
 
-const gifExport = {
-    entry: './js/save-frames.js',
-    output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'save-frames.bundle.js'
-    },
-    target: 'node',
-    externals: [nodeExternals()]
-}
-
 module.exports = [
     Object.assign({}, common, client),
-    Object.assign({}, common, gifExport)
 ];
