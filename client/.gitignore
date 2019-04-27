@@ -3,3 +3,4 @@ node_modules/
 .vscode/
 # We don't ignore promo/ or build/ here just because we want them to stay empty in the repo
 
+assets/
