@@ -1,6 +1,7 @@
 // Just prescale these, hey
 const IMAGE_SRCS = [
-    "char.png"
+    "char.png",
+    "coin.png",
 ];
 
 const images = {};

@@ -26,6 +26,8 @@ export class Player extends Entity {
      */
     render(context) {
         const frame = this.animCount < 0.5 ? 0 : 1;
-        drawSprite(context, "char", frame, this.midX, this.maxY, SCALE * 8, SCALE * 8);
+        const spriteWidth = SCALE * 8;
+        const spriteHeight = SCALE * 8;
+        drawSprite(context, "char", frame, this.midX - spriteWidth / 2, this.maxY - spriteHeight, spriteWidth, spriteHeight);
     }
 }
