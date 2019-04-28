@@ -1,3 +1,8 @@
+@font-face {
+	font-family: "nokiafc22";
+	src: url('../font/nokiafc22.ttf') format('truetype');
+}
+
 html, body {
  	overflow-x: hidden;
  	overflow-y: hidden;
@@ -5,6 +10,8 @@ html, body {
 body {
 	padding: 0;
 	margin: 0;
+	font: 16px "nokiafc22";
+	color: 222034;
 }
 
 canvas {
@@ -37,7 +44,8 @@ canvas {
 	-webkit-transition: top 0.5s;
 	transition: top 0.5s;
 
-	background-color: #696a6a;
+	background-color: #323c39;
+	color: #9badb7
 }
 
 .fight-extra {
@@ -114,14 +122,23 @@ canvas {
 	height: 30vmin;
 	margin: 5vmin;
 	padding: 0;
+	font: 32px "nokiafc22";
+	transition: transform 0.1s linear;
+}
+
+.big-button:active {
+    transform: scale(0.95);
+}
+.big-button:focus {
+	outline: 0;
 }
 
 .buy-button {
-	background-color: rgb(38, 243, 38);
+	background-color: #6abe30;
 }
 
 .sell-button {
-	background-color: rgb(216, 44, 44);
+	background-color: #ac3232
 }
 
 .content {
