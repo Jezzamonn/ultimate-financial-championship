@@ -68,6 +68,13 @@ export class Entity {
         );
     }
 
+    isTouchingPoint(point) {
+        return (
+            this.minX < point.x && point.x < this.maxX &&
+            this.minY < point.y && point.y < this.maxY
+        );
+    }
+
     sqGroundDistBetween(entity) {
         const dx = this.midX - entity.midX;
         const dy = this.maxY - entity.maxY;

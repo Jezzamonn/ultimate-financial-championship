@@ -54,7 +54,7 @@ export class Player extends Entity {
 
     moveTowardsPoint(dt) {
         const dx = this.desiredPoint.x - this.midX;
-        const dy = this.desiredPoint.y - this.maxY;
+        const dy = this.desiredPoint.y - this.midY;
         const sqDist = dx * dx + dy * dy;
 
         this.velX += dt * this.accel * dx;

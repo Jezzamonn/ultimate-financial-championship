@@ -6,7 +6,7 @@ import { CanvasManager } from "./canvasManager";
 export default class World {
 
 	constructor(controller) {
-		this.controller = this;
+		this.controller = controller;
 		this.canvasManager = new CanvasManager('#world-canvas');
 
         this.coins = [];
@@ -51,8 +51,8 @@ export default class World {
 
 	onMouseClick(clickPos) {
 		this.player.desiredPoint = {
-			x: clickPos.x + this.cameraPos.x,
-			y: clickPos.y + this.cameraPos.y
+			x: (clickPos.x / this.canvasManager.gameScale) + this.cameraPos.x,
+			y: (clickPos.y / this.canvasManager.gameScale) + this.cameraPos.y,
 		};
 	}
 

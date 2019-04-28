@@ -6,8 +6,6 @@ export default class Controller {
 	constructor() {
 		this.world = new World(this);
 		this.fight = null;
-
-		this.startFight();
 	}
 
 	update(dt) {

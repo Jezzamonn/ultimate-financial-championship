@@ -7,7 +7,8 @@ export class CanvasManager {
 
         // Currently assuming square proportions.
         this.size = 500;
-        this.scale = 1;
+        this.pixelScale = 1;
+        this.gameScale = 1;
 
         this.resize();
     }
@@ -19,7 +20,7 @@ export class CanvasManager {
 
         // Set origin to middle and scale canvas
         this.context.translate(this.canvas.width / 2, this.canvas.height / 2);
-        this.context.scale(this.scale, this.scale);
+        this.context.scale(this.pixelScale, this.pixelScale);
     }
 
     resize() {
@@ -35,7 +36,8 @@ export class CanvasManager {
         // Math.max -> no borders (will cut off edges of the thing)
         // Math.min -> show all (with borders)
         // There are other options too :)
-        this.scale = Math.min(this.canvas.width, this.canvas.height) / this.size;
+        this.pixelScale = Math.min(this.canvas.width, this.canvas.height) / this.size;
+        this.gameScale = this.pixelScale / pixelRatio;
     }
 
 }
