@@ -13,8 +13,8 @@ export default class Controller {
 		if (this.fight) {
 			this.fight.update(dt);
 			if (this.fight.done) {
+				this.fight.endFight();
 				this.fight = null;
-				document.querySelector('.fight').classList.remove('fight-shown');
 			}
 		}
 	}
@@ -32,11 +32,7 @@ export default class Controller {
 		this.world.onMouseClick(clickPos);
 	}
 
-	/**
-	 * 
-	 * @param {!CanvasRenderingContext2D} context 
-	 */
-	render(context) {
+	render() {
 		this.world.canvasManager.clear();
 		this.world.render();
 

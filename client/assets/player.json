@@ -10,7 +10,7 @@
    },
    {
     "filename": "player 1.aseprite",
-    "frame": { "x": 33, "y": 1, "w": 32, "h": 32 },
+    "frame": { "x": 1, "y": 33, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -19,7 +19,7 @@
    },
    {
     "filename": "player 2.aseprite",
-    "frame": { "x": 65, "y": 1, "w": 32, "h": 32 },
+    "frame": { "x": 33, "y": 1, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -28,25 +28,79 @@
    },
    {
     "filename": "player 3.aseprite",
-    "frame": { "x": 1, "y": 33, "w": 32, "h": 32 },
-    "rotated": false,
-    "trimmed": false,
-    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
-    "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
-   },
-   {
-    "filename": "player 4.aseprite",
     "frame": { "x": 33, "y": 33, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
     "sourceSize": { "w": 32, "h": 32 },
-    "duration": 100
+    "duration": 200
+   },
+   {
+    "filename": "player 4.aseprite",
+    "frame": { "x": 65, "y": 1, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 200
    },
    {
     "filename": "player 5.aseprite",
     "frame": { "x": 65, "y": 33, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 200
+   },
+   {
+    "filename": "player 6.aseprite",
+    "frame": { "x": 97, "y": 1, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "player 7.aseprite",
+    "frame": { "x": 97, "y": 33, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "player 8.aseprite",
+    "frame": { "x": 129, "y": 1, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "player 9.aseprite",
+    "frame": { "x": 129, "y": 33, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "player 10.aseprite",
+    "frame": { "x": 161, "y": 1, "w": 32, "h": 32 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
+    "sourceSize": { "w": 32, "h": 32 },
+    "duration": 100
+   },
+   {
+    "filename": "player 11.aseprite",
+    "frame": { "x": 161, "y": 33, "w": 32, "h": 32 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 32, "h": 32 },
@@ -57,14 +111,15 @@
  "meta": {
   "app": "http://www.aseprite.org/",
   "version": "1.2.9",
-  "image": "/Users/jeremy/Documents/LD44/assets/player.png",
+  "image": "/Users/jeremy/Documents/LD44/client/assets/player.png",
   "format": "RGBA8888",
-  "size": { "w": 98, "h": 66 },
+  "size": { "w": 194, "h": 66 },
   "scale": "1",
   "frameTags": [
-   { "name": "Idle", "from": 0, "to": 2, "direction": "forward" },
-   { "name": "Loop", "from": 3, "to": 5, "direction": "forward" },
-   { "name": "Run", "from": 3, "to": 5, "direction": "forward" }
+   { "name": "IdleRight", "from": 0, "to": 2, "direction": "forward" },
+   { "name": "IdleLeft", "from": 3, "to": 5, "direction": "forward" },
+   { "name": "RunRight", "from": 6, "to": 8, "direction": "forward" },
+   { "name": "RunLeft", "from": 9, "to": 11, "direction": "forward" }
   ]
  }
 }

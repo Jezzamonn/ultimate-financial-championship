@@ -19,6 +19,7 @@ export class Player extends Entity {
 
         this.animCount = 10 * Math.random();
         this.animState = "Idle";
+        this.facingRight = Math.random() < 0.5;
 
         this.desiredPoint = null;
         this.velX = 0;
@@ -71,6 +72,12 @@ export class Player extends Entity {
         }
         else {
             this.setAnimState("Run");
+            if (dx > 0.1) {
+                this.facingRight = true;
+            }
+            else if (dx < -0.1) {
+                this.facingRight = false;
+            }
         }
     }
 
@@ -124,6 +131,7 @@ export class Player extends Entity {
      * @param {CanvasRenderingContext2D} context 
      */
     render(context) {
-        drawAnimation(context, "player", this.animState, this.animCount, this.midX, this.maxY, 0.5, 1);
+        const facingString = this.facingRight ? "Right" : "Left";
+        drawAnimation(context, "player", this.animState + facingString, this.animCount, this.midX, this.maxY, 0.5, 1);
     }
 }

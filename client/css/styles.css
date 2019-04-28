@@ -23,6 +23,7 @@ canvas {
 	right: 0;
 	bottom: 0;
 	z-index: -1;
+	background-color: #847e87;
 }
 
 .fight {
@@ -35,6 +36,31 @@ canvas {
 
 	-webkit-transition: top 0.5s;
 	transition: top 0.5s;
+
+	background-color: #696a6a;
+}
+
+.fight-extra {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+}
+
+.fight-countdown {
+	position: absolute;
+	transform: translateX(-50%);
+	left: 50%;
+	-webkit-transition: left 0.2s;
+	transition: left 0.2s;
+}
+
+.hidden-right {
+	left: 150%;
+}
+
+.hidden-left {
+	left: -50%;
 }
 
 .fight-scores {
