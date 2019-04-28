@@ -23,7 +23,7 @@ export default class Fight {
 
 		// Data
 		this.stockData = new StockData();
-		this.stockData.data = [200, 123, 120, 230, 300, 201, 600, 800, 20];
+		// TODO: Pull this from somewhere???
 
 		this.player1Data = new FightData(1000, 0);
 		this.player2Data = new FightData(1000, 0);

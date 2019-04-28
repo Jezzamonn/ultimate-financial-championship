@@ -3,7 +3,7 @@ import {slurp} from "../util";
 export class StockData {
 
     constructor() {
-        this.data = [];
+        this.data = generateRandomData();
     }
 
     getValueAtTime(t) {
@@ -63,4 +63,14 @@ export class StockData {
     getUiBottom(t) {
         return Math.min(this.data[0] * 0.5, this.getWorstSoFar(t))
     }
+}
+
+function generateRandomData() {
+    const data = [];
+    for (let i = 0; i < 10; i++) {
+        const exponent = slurp(-2, 2, Math.random())
+        const datum = 100 * Math.pow(2, exponent);
+        data.push(datum);
+    }
+    return data;
 }
