@@ -1,4 +1,4 @@
-import {slurp} from "../util";
+import {slurp, clamp} from "../util";
 
 export class StockBar {
 
@@ -23,7 +23,9 @@ export class StockBar {
 
     update(dt) {
         this.amt += dt / 10;
-        this.amt %= 1;
+        if (this.amt > 1.2) {
+            this.amt = -0.2;
+        }
     }
 
     render() {
@@ -38,11 +40,12 @@ export class StockBar {
         this.context.beginPath();
         this.context.strokeStyle = 'white';
 
-        const floatIndex = this.data.getFloatIndex(this.amt);
+        const t = clamp(this.amt, 0, 1);
+        const floatIndex = this.data.getFloatIndex(t);
         const indices = [...Array(Math.ceil(floatIndex)).keys(), floatIndex];
 
-        const top = this.data.getUiTop(this.amt);
-        const bottom = this.data.getUiBottom(this.amt);
+        const top = this.data.getUiTop(t);
+        const bottom = this.data.getUiBottom(t);
         const diff = Math.max(top - bottom, 0.0001);
 
         for (let i = 0; i < indices.length; i++) {
@@ -50,7 +53,7 @@ export class StockBar {
             const value = this.data.getValueAtFloatIndex(index);
             const valueAmt = 1 - ((value - bottom) / diff);
 
-            const xAmt = index / this.data.data.length;
+            const xAmt = index / (this.data.data.length - 1);
             const x = slurp(0, this.canvas.width, xAmt);
             const y = slurp(0.1, 0.9, valueAmt) * this.canvas.height
 
@@ -59,6 +62,10 @@ export class StockBar {
             }
             else {
                 this.context.lineTo(x, y);
+            }
+
+            if (i === indices.length - 1) {
+                this.context.arc(x, y, 1, 0, 2 * Math.PI);
             }
         }
 

@@ -11,14 +11,17 @@ export class StockData {
     }
 
     getValueAtFloatIndex(floatIndex) {
+        if (floatIndex >= this.data.length - 1) {
+            return this.data[this.data.length - 1];
+        }
+        if (floatIndex < 0) {
+            return this.data[0];
+        }
         const firstIndex = Math.floor(floatIndex);
         const firstValue = this.data[firstIndex];
 
         const secondIndex = firstIndex + 1;
-        let secondValue = 0;
-        if (secondIndex < this.data.length) {
-            secondValue = this.data[secondIndex];
-        }
+        let secondValue = this.data[secondIndex];
 
         const extraAmt = floatIndex % 1;
         const value = slurp(firstValue, secondValue, extraAmt);

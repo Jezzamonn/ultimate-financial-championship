@@ -13,7 +13,7 @@ export default class Fight {
 		this.person2 = person2;
 
 		this.stockData = new StockData();
-		this.stockData.data = [50, 100, 50, 100];
+		this.stockData.data = [200, 123, 120, 230, 300, 201, 600, 800, 20];
 
 		// Init game data
 		this.player1Stocks = 0;
