@@ -82,8 +82,8 @@ export class Entity {
     }
 
     sqDistToPoint(point) {
-        const dx = this.midX - entity.midX;
-        const dy = this.maxY - entity.maxY;
+        const dx = this.midX - point.x;
+        const dy = this.midX - point.y;
         return (dx * dx + dy * dy);
     }
 }

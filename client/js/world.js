@@ -53,10 +53,25 @@ export default class World {
 	}
 
 	onMouseClick(clickPos) {
-		this.player.desiredPoint = {
+		const localClickPoint = {
 			x: (clickPos.x / this.canvasManager.gameScale) + this.cameraPos.x,
 			y: (clickPos.y / this.canvasManager.gameScale) + this.cameraPos.y,
 		};
+		// haha, who cares about passing mutable reference values, amiright??
+		this.player.desiredPoint = localClickPoint;
+
+		this.checkFightClick(localClickPoint);
+	}
+
+	checkFightClick(localClickPoint) {
+		this.others.sort((a, b) => a.maxY - b.maxY);
+
+		for (const other of this.others) {
+			if (other.isTouchingPoint(localClickPoint)) {
+				this.controller.startFight(this.player, other);
+				return;
+			}
+		}
 	}
 
 	updateCamera() {
@@ -75,13 +90,12 @@ export default class World {
 
 		context.translate(Math.round(-this.cameraPos.x), Math.round(-this.cameraPos.y));
 
-        for (const coin of this.coins) {
-            coin.render(context);
+		const toRender = [...this.coins, ...this.others, this.player];
+		toRender.sort((a, b) => a.maxY - b.maxY);
+
+        for (const r of toRender) {
+			r.render(context);
 		}
-		for (const player of this.others) {
-			player.render(context);
-		}
-        this.player.render(context);
 
 		context.restore();
 	}
