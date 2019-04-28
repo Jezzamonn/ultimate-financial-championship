@@ -18,6 +18,7 @@ export default class Fight {
 	}
 
 	update(dt) {
+		this.stockBar.update(dt);
 	}
 
 	onMouseClick(clickPos) {

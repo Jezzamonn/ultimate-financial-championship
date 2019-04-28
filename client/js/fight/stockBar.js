@@ -22,7 +22,7 @@ export default class StockBar {
     }
 
     update(dt) {
-        this.amt += 0.1;
+        this.amt += dt / 10;
         this.amt %= 1;
     }
 
