@@ -5,7 +5,8 @@ import CanvasManager from "./canvasManager";
 
 export default class World {
 
-	constructor() {
+	constructor(controller) {
+		this.controller = this;
 		this.canvasManager = new CanvasManager('#world-canvas');
 
         this.coins = [];

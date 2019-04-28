@@ -50,8 +50,15 @@
 <div class="world">
 	<canvas id="world-canvas" width="500" height="500"></canvas>
 </div>
-<div class="fight">
-	<canvas id="fight-canvas" width="500" height="500"></canvas>
+<div class="fight fight-shown">
+	<div class="fight-container">
+		<canvas class="stock-bar" id="stock-bar" width="150" height="100"></canvas>
+		<div>
+			<button class="big-button buy-button">BUY</button>
+			<button class="big-button sell-button">SELL</button>
+		</div>
+	</div>
+	<canvas class="canvas-bg" id="fight-canvas" width="500" height="500"></canvas>
 </div>
 <script src="build/main.bundle.js"></script>
 </body>

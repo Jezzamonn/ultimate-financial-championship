@@ -7,6 +7,15 @@ body {
 	margin: 0;
 }
 
+canvas {
+	image-rendering:-moz-crisp-edges;
+	image-rendering:-o-crisp-edges;
+	image-rendering:-webkit-optimize-contrast;
+	image-rendering:crisp-edges;
+	image-rendering:pixelated;
+	-ms-interpolation-mode: nearest-neighbor;
+}
+
 .world {
 	position: absolute;
 	top: 0;
@@ -18,10 +27,54 @@ body {
 
 .fight {
 	position: absolute;
-	top: 0;
+	top: 100%;
 	left: 0;
 	right: 0;
 	z-index: 1;
+	height: 100%;
+
+	-webkit-transition: top 0.5s;
+	transition: top 0.5s;
+}
+
+.fight-shown {
+	top: 0;
+}
+
+.fight-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+	height: 100%;
+}
+
+.canvas-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.stock-bar {
+	width: 60vmin;
+	height: 40vmin;
+}
+
+.big-button {
+	border: none;
+	width: 30vmin;
+	height: 30vmin;
+	margin: 5vmin;
+	padding: 0;
+}
+
+.buy-button {
+	background-color: rgb(38, 243, 38);
+}
+
+.sell-button {
+	background-color: rgb(216, 44, 44);
 }
 
 .content {
