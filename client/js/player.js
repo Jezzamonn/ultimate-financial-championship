@@ -2,6 +2,7 @@ import { drawAnimation } from "./sprites";
 import { SCALE } from "./constants";
 import { Entity } from "./entity";
 import { PlayerState } from "./player-state";
+import { playSound } from "./sounds";
 
 export class Player extends Entity {
 
@@ -104,6 +105,7 @@ export class Player extends Entity {
                 this.world.coins.splice(i, 1);
                 this.state.money += 1;
                 this.state.updateUI();
+                playSound("coin");
             }
         }
     }

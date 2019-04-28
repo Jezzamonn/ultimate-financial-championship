@@ -21,7 +21,7 @@ export default class Controller {
 
 	startFight(player1, player2) {
 		this.fight = new Fight(this, player1, player2);
-		document.querySelector('.fight').classList.add('fight-shown');
+		this.fight.start();
 	}
 
 	onMouseClick(clickPos) {

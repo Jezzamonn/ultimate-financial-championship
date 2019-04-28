@@ -17,7 +17,8 @@
     "watch-gif": "npm-watch gif",
     "video": "script/video-gen.sh",
     "watch-video": "npm-watch video",
-    "preview": "node build/save-frames.bundle.js --width=1200 --height=630 --single_frame --out=preview.png"
+    "preview": "node build/save-frames.bundle.js --width=1200 --height=630 --single_frame --out=preview.png",
+    "audio": "script/audio.sh"
   },
   "husky": {
     "hooks": {

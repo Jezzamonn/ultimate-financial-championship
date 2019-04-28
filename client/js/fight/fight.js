@@ -7,6 +7,7 @@ import { StockData } from "./stock-data";
 import Controller from '../controller';
 import { FightData } from "./fight-data";
 import { clamp } from "../util";
+import { playSound } from "../sounds";
 
 export default class Fight {
 
@@ -28,7 +29,7 @@ export default class Fight {
 		this.player2Data = new FightData(1000, 0);
 
 		// State stuff?
-		this.timeCount = -3;
+		this.timeCount = -3.01;
 		this.maxTime = 10;
 		this.done = false;
 
@@ -44,12 +45,14 @@ export default class Fight {
 			const price = this.stockData.getValueAtTime(this.timeAmt);
 			this.player1Data.tryBuy(price);
 			this.updateUi();
+			playSound("click");
 		}
 
 		this.sell = () => {
 			const price = this.stockData.getValueAtTime(this.timeAmt);
 			this.player1Data.trySell(price);
 			this.updateUi();
+			playSound("click");
 		}
 
 		this.addButtonListeners();
@@ -83,30 +86,45 @@ export default class Fight {
 			this.done = true;
 		}
 		this.stockBar.timeAmt = this.timeAmt;
+
+		this.updateUi(this.timeCount - dt, this.timeCount);
 	}
 
-	updateUi() {
+	updateUi(lastTimeCount, timeCount) {
 		const price = this.stockData.getValueAtTime(this.timeAmt);
 		this.player1Data.updateUi(price, '#fight-money', '#fight-stock', '#fight-total');
 		this.player2Data.updateUi(price, '#fight-money2', '#fight-stock2', '#fight-total2');
 
-		if (this.timeCount < -2) {
+		if (atBoundary(lastTimeCount, timeCount, -3)) {
 			document.querySelector('.countdown3').classList.remove('hidden-right');
+			playSound("slide");
 		}
-		else if (this.timeCount < -1) {
+		if (atBoundary(lastTimeCount, timeCount, -2)) {
 			document.querySelector('.countdown2').classList.remove('hidden-right');
 			document.querySelector('.countdown3').classList.add('hidden-left');
+			playSound("slide");
 		}
-		else if (this.timeCount < 0) {
+		if (atBoundary(lastTimeCount, timeCount, -1)) {
 			document.querySelector('.countdown1').classList.remove('hidden-right');
 			document.querySelector('.countdown2').classList.add('hidden-left');
+			playSound("slide");
 		}
-		else if (this.timeCount < 0.5) {
+		if (atBoundary(lastTimeCount, timeCount, 0)) {
 			document.querySelector('.countdown0').classList.remove('hidden-right');
 			document.querySelector('.countdown1').classList.add('hidden-left');
+			playSound("slide");
 		}
-		else {
-			document.querySelector('.countdown0').classList.add('hidden-right');
+		if (atBoundary(lastTimeCount, timeCount, 0.5)) {
+			document.querySelector('.countdown0').classList.add('hidden-left');
+		}
+		if (atBoundary(lastTimeCount, timeCount, this.maxTime)) {
+			const price = this.stockData.getValueAtTime(1);
+			if (this.player1Data.getValue(price) > this.player2Data.getValue(price)) {
+				playSound("win");
+			}
+			if (this.player1Data.getValue(price) < this.player2Data.getValue(price)) {
+				playSound("lose");
+			}
 		}
 	}
 
@@ -114,11 +132,13 @@ export default class Fight {
 	 * @param {!CanvasRenderingContext2D} context 
 	 */
 	render() {
-		const context = this.canvasManager.context;
-
 		this.stockBar.render();
+	}
 
-		this.updateUi();
+	start() {
+		document.querySelector('.fight').classList.add('fight-shown');
+
+		playSound("fight");
 	}
 
 	endFight() {
@@ -144,6 +164,11 @@ export default class Fight {
 		
 		document.querySelector('.fight').classList.remove('fight-shown');
 		this.restoreUI();
+		playSound("slide");
 	}
 
+}
+
+function atBoundary(lastTime, nowTime, timeToBeAt) {
+	return (lastTime < timeToBeAt && nowTime >= timeToBeAt);
 }
