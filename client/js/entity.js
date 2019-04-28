@@ -80,4 +80,10 @@ export class Entity {
         const dy = this.maxY - entity.maxY;
         return (dx * dx + dy * dy);
     }
+
+    sqDistToPoint(point) {
+        const dx = this.midX - entity.midX;
+        const dy = this.maxY - entity.maxY;
+        return (dx * dx + dy * dy);
+    }
 }
