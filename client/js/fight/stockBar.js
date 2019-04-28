@@ -1,4 +1,5 @@
 import {slurp, clamp} from "../util";
+import { disableSmoothing } from "../sprites";
 
 export class StockBar {
 
@@ -7,10 +8,7 @@ export class StockBar {
         /** @type {!CanvasRenderingContext2D} */
         this.context = this.canvas.getContext('2d');
 
-        this.context.msImageSmoothingEnabled = false;
-        this.context.mozImageSmoothingEnabled = false;
-        this.context.webkitImageSmoothingEnabled = false;
-        this.context.imageSmoothingEnabled = false;
+        disableSmoothing(this.context);
 
         this.timeAmt = 0.5;
         this.data = null;

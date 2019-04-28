@@ -42,6 +42,9 @@ export default class World {
 		for (const player of this.others) {
 			player.update(dt);
 		}
+		for (const coin of this.coins) {
+            coin.update(dt);
+		}
 
 		this.player.update(dt);
 		this.player.playerUpdate(dt);
@@ -70,7 +73,7 @@ export default class World {
 		
 		context.save();
 
-		context.translate(-this.cameraPos.x, -this.cameraPos.y);
+		context.translate(Math.round(-this.cameraPos.x), Math.round(-this.cameraPos.y));
 
         for (const coin of this.coins) {
             coin.render(context);

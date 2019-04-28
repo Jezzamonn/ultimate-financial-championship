@@ -1,3 +1,4 @@
+import { disableSmoothing } from "./sprites";
 
 export class CanvasManager {
 
@@ -21,6 +22,8 @@ export class CanvasManager {
         // Set origin to middle and scale canvas
         this.context.translate(this.canvas.width / 2, this.canvas.height / 2);
         this.context.scale(this.pixelScale, this.pixelScale);
+
+        disableSmoothing(this.context);
     }
 
     resize() {
@@ -37,6 +40,7 @@ export class CanvasManager {
         // Math.min -> show all (with borders)
         // There are other options too :)
         this.pixelScale = Math.min(this.canvas.width, this.canvas.height) / this.size;
+        this.pixelScale = Math.round(2 * this.pixelScale) / 2;
         this.gameScale = this.pixelScale / pixelRatio;
     }
 

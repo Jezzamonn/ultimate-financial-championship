@@ -1,4 +1,4 @@
-import { drawSprite } from "./sprites";
+import { drawAnimation } from "./sprites";
 import { SCALE } from "./constants";
 import { Entity } from "./entity";
 import { PlayerState } from "./player-state";
@@ -17,8 +17,8 @@ export class Player extends Entity {
         this.width = SCALE * 8;
         this.height = SCALE * 8;
 
-        this.animCount = 0;
-        this.animPeriod = 1;
+        this.animCount = 10 * Math.random();
+        this.animState = "Idle";
 
         this.desiredPoint = null;
         this.velX = 0;
@@ -35,8 +35,7 @@ export class Player extends Entity {
     }
 
     update(dt) {
-        this.animCount += dt / this.animPeriod;
-        this.animCount %= 1;
+        this.animCount += dt;
 
         if (this.desiredPoint) {
             this.moveTowardsPoint(dt);
@@ -68,7 +67,18 @@ export class Player extends Entity {
 
         if (sqDist < this.minDist * this.minDist && speed < this.stopSpeed * this.stopSpeed) {
             this.desiredPoint = null;
+            this.setAnimState("Idle");
         }
+        else {
+            this.setAnimState("Run");
+        }
+    }
+
+    setAnimState(state) {
+        if (this.animState != state) {
+            this.animCount = 0;
+        }
+        this.animState = state;
     }
 
     playerUpdate(dt) {
@@ -114,9 +124,6 @@ export class Player extends Entity {
      * @param {CanvasRenderingContext2D} context 
      */
     render(context) {
-        const frame = this.animCount < 0.5 ? 0 : 1;
-        const spriteWidth = SCALE * 8;
-        const spriteHeight = SCALE * 8;
-        drawSprite(context, "char", frame, this.midX - spriteWidth / 2, this.maxY - spriteHeight, spriteWidth, spriteHeight);
+        drawAnimation(context, "player", this.animState, this.animCount, this.midX, this.maxY, 0.5, 1);
     }
 }
