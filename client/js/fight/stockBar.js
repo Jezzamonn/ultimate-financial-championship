@@ -12,7 +12,7 @@ export class StockBar {
         this.context.webkitImageSmoothingEnabled = false;
         this.context.imageSmoothingEnabled = false;
 
-        this.amt = 0.5;
+        this.timeAmt = 0.5;
         this.data = null;
 
         this.x = -150;
@@ -40,7 +40,7 @@ export class StockBar {
         this.context.beginPath();
         this.context.strokeStyle = 'white';
 
-        const t = clamp(this.amt, 0, 1);
+        const t = clamp(this.timeAmt, 0, 1);
         const floatIndex = this.data.getFloatIndex(t);
         const indices = [...Array(Math.ceil(floatIndex)).keys(), floatIndex];
 
