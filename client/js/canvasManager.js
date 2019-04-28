@@ -1,5 +1,5 @@
 
-export default class CanvasManager {
+export class CanvasManager {
 
     constructor(selector) {
         this.canvas = document.querySelector(selector);

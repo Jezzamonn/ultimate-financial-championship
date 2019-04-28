@@ -1,7 +1,7 @@
 import { Player } from "./player";
 import { Coin } from "./coin";
 import Chance from "chance";
-import CanvasManager from "./canvasManager";
+import { CanvasManager } from "./canvasManager";
 
 export default class World {
 

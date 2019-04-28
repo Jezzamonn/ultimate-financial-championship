@@ -1,6 +1,6 @@
 import {slurp} from "../util";
 
-export default class StockBar {
+export class StockBar {
 
     constructor() {
         this.canvas = document.querySelector('#stock-bar');
@@ -12,8 +12,8 @@ export default class StockBar {
         this.context.webkitImageSmoothingEnabled = false;
         this.context.imageSmoothingEnabled = false;
 
-        this.amt = 0.99999;
-        this.data = [0, 1, 0, 1];
+        this.amt = 0.5;
+        this.data = null;
 
         this.x = -150;
         this.y = -200;
@@ -31,31 +31,37 @@ export default class StockBar {
         this.context.fillStyle = 'black';
         this.context.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-        const maxPoints = 100;
+        if (!this.data) {
+            return;
+        }
+
         this.context.beginPath();
         this.context.strokeStyle = 'white';
-        for (let iAmt = 0; iAmt <= this.amt; iAmt += 1 / maxPoints) {
-            const indexAmt = (this.data.length - 1) * iAmt;
-            const firstIndex = Math.floor(indexAmt);
-            const firstIndexAmt = indexAmt % 1;
-            const firstValue = this.data[firstIndex];
-            const secondIndex = firstIndex + 1;
-            let secondValue = 0;
-            if (secondIndex < this.data.length) {
-                secondValue = this.data[secondIndex];
-            }
-            const value = slurp(firstValue, secondValue, 1 - firstIndexAmt)
 
-            const x = slurp(0, this.canvas.width, iAmt);
-            const y = slurp(0, this.canvas.height, value);
+        const floatIndex = this.data.getFloatIndex(this.amt);
+        const indices = [...Array(Math.ceil(floatIndex)).keys(), floatIndex];
 
-            if (iAmt === 0) {
+        const top = this.data.getUiTop(this.amt);
+        const bottom = this.data.getUiBottom(this.amt);
+        const diff = Math.max(top - bottom, 0.0001);
+
+        for (let i = 0; i < indices.length; i++) {
+            const index = indices[i];
+            const value = this.data.getValueAtFloatIndex(index);
+            const valueAmt = 1 - ((value - bottom) / diff);
+
+            const xAmt = index / this.data.data.length;
+            const x = slurp(0, this.canvas.width, xAmt);
+            const y = slurp(0.1, 0.9, valueAmt) * this.canvas.height
+
+            if (i === 0) {
                 this.context.moveTo(x, y);
             }
             else {
                 this.context.lineTo(x, y);
             }
         }
+
         // draw multiple times to get rid of antialiasing haha
         for (let i = 0; i < 100; i++) {
             this.context.stroke();
