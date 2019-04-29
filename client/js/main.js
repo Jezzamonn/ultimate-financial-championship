@@ -18,15 +18,15 @@ function init() {
 	// Kick off the update loop
 	window.requestAnimationFrame(everyFrame);
 
-	document.querySelector('#money-button').addEventListener('click', () => {
-		controller.world.player.state.money += 1;
-		controller.world.player.state.updateUI();
-	});
-	document.querySelector('#dividend-button').addEventListener('click', () => {
-		controller.world.player.state.money -= 10;
-		controller.world.player.state.dividends += 1;
-		controller.world.player.state.updateUI();
-	});
+	// document.querySelector('#money-button').addEventListener('click', () => {
+	// 	controller.world.player.state.money += 1;
+	// 	controller.world.player.state.updateUI();
+	// });
+	// document.querySelector('#dividend-button').addEventListener('click', () => {
+	// 	controller.world.player.state.money -= 10;
+	// 	controller.world.player.state.dividends += 1;
+	// 	controller.world.player.state.updateUI();
+	// });
 
 	document.addEventListener('mousedown', (evt) => {
 		controller.onMouseClick(getClickCoordinates(evt))
