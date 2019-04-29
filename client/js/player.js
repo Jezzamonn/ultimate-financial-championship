@@ -10,6 +10,7 @@ export class Player extends Entity {
         super();
 
         this.name = '';
+        this.id = -1;
 
         this.world = world;
 
@@ -99,12 +100,16 @@ export class Player extends Entity {
     }
 
     getCoins() {
-        for (let i = this.world.coins.length - 1; i >= 0; i--) {
-            const coin = this.world.coins[i];
+        for (const coinId in this.world.coins) {
+            const coin = this.world.coins[coinId];
             if (this.isTouching(coin)) {
-                this.world.coins.splice(i, 1);
+                delete this.world.coins[coinId];
+
                 this.state.money += 1;
                 this.state.updateUI();
+                
+                window.socket.emit('take-coin', {id: coin.id});
+
                 playSound("coin");
             }
         }
@@ -113,7 +118,7 @@ export class Player extends Entity {
     tryShowChallengeUI() {
         let closestPlayer = null;
         let closestDist = Infinity;
-        for (const player of this.world.others) {
+        for (const player of Object.values(this.world.others)) {
             const dist = this.sqGroundDistBetween(player)
             if (dist < closestDist) {
                 closestPlayer = player;

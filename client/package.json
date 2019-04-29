@@ -13,12 +13,8 @@
     "webpack": "webpack || exit 1",
     "watch": "npm-watch webpack",
     "reload": "reload -b -w build",
-    "gif": "script/gif-gen.sh",
-    "watch-gif": "npm-watch gif",
-    "video": "script/video-gen.sh",
-    "watch-video": "npm-watch video",
-    "preview": "node build/save-frames.bundle.js --width=1200 --height=630 --single_frame --out=preview.png",
-    "audio": "script/audio.sh"
+    "audio": "script/audio.sh",
+    "server": "node build/server.bundle.js"
   },
   "husky": {
     "hooks": {
@@ -40,11 +36,14 @@
     "npm-watch": "^0.3.0",
     "reload": "^2.3.1",
     "single-line-log": "^1.1.2",
+    "socket.io": "^2.2.0",
     "string-format": "^2.0.0",
     "webpack": "^3.11.0",
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "chance": "^1.0.18"
+    "chance": "^1.0.18",
+    "express": "^4.16.4",
+    "socket.io-client": "^2.2.0"
   }
 }

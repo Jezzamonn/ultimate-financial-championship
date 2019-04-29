@@ -1,9 +1,12 @@
 import Controller from './controller.js';
-import { PlayerState } from './player-state.js';
+import io from 'socket.io-client';
 
 let lastTime = null;
 /** @type {!Controller} */
 let controller = null;
+
+const serverAddress = "http://localhost:3000"
+let socket = null;
 
 function init() {
 	lastTime = Date.now();
@@ -28,6 +31,20 @@ function init() {
 	document.addEventListener('mousedown', (evt) => {
 		controller.onMouseClick(getClickCoordinates(evt))
 	});
+
+	initSocketIo();
+}
+
+function initSocketIo() {
+	socket = new io(serverAddress)
+
+	socket.on('world-update', (data) => {
+		console.log(data);
+		controller.worldUpdate(data);
+	});
+
+	// Don't have time to hook this up properly sooooo GLOBAL VARIABLE TIME
+	window.socket = socket;
 }
 
 // TODO: Make tweak this to allow frame skipping for slow computers. Maybe.
@@ -62,4 +79,4 @@ function resize() {
 	render();
 }
 
-init();
+window.onload = () => init();

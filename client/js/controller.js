@@ -19,6 +19,11 @@ export default class Controller {
 		}
 	}
 
+	worldUpdate(data) {
+		this.world.updateCoins(data.coins);
+		this.world.updatePlayers(data.players);
+	}
+
 	startFight(player1, player2) {
 		this.fight = new Fight(this, player1, player2);
 		this.fight.start();

@@ -9,15 +9,15 @@ export default class World {
 		this.controller = controller;
 		this.canvasManager = new CanvasManager('#world-canvas');
 
-        this.coins = [];
-		this.others = [];
+        this.coins = {};
+		this.others = {};
 		this.player = new Player(this);
 		this.player.name = "Me";
 		this.cameraPos = {x: 0, y: 0};
 
 		this.chance = new Chance(1)
 
-		this.initThings();
+		// this.initThings();
 	}
 
 	initThings() {
@@ -25,8 +25,9 @@ export default class World {
         for (let i = 0; i < 10; i++) {
             const coin = new Coin();
             coin.x = 200 * (2 * Math.random() - 1);
-            coin.y = 200 * (2 * Math.random() - 1);
-            this.coins.push(coin);
+			coin.y = 200 * (2 * Math.random() - 1);
+			coin.id = i;
+            this.coins[i] = coin;
 		}
 		
 		for (let i = 0; i < 10; i++) {
@@ -34,15 +35,16 @@ export default class World {
             player.x = 400 * (2 * Math.random() - 1);
 			player.y = 400 * (2 * Math.random() - 1);
 			player.name = this.chance.name();
-			this.others.push(player);
+			player.id = i;
+			this.others[i] = player;
 		}
 	}
 
 	update(dt) {
-		for (const player of this.others) {
+		for (const player of Object.values(this.others)) {
 			player.update(dt);
 		}
-		for (const coin of this.coins) {
+		for (const coin of Object.values(this.coins)) {
             coin.update(dt);
 		}
 
@@ -64,9 +66,7 @@ export default class World {
 	}
 
 	checkFightClick(localClickPoint) {
-		this.others.sort((a, b) => a.maxY - b.maxY);
-
-		for (const other of this.others) {
+		for (const other of Object.values(this.others)) {
 			if (other.isTouchingPoint(localClickPoint)) {
 				this.controller.startFight(this.player, other);
 				return;
@@ -77,6 +77,35 @@ export default class World {
 	updateCamera() {
 		this.cameraPos.x += 0.02 * (this.player.midX - this.cameraPos.x);
 		this.cameraPos.y += 0.02 * (this.player.midY - this.cameraPos.y);
+	}
+
+	updateCoins(coins) {
+		const coinsIdsSeen = new Set();
+
+		// Potentially add new coins
+		for (const coinData of coins) {
+			coinsIdsSeen.add(coinData.id.toString());
+			if (this.coins.hasOwnProperty(coinData.id)) {
+				continue;
+			}
+			const coin = new Coin();
+			coin.loadFromData(coinData);
+			this.coins[coinData.id.toString()] = coin;
+			console.log(`Add coin ${coinData.id}`);
+		}
+
+		// Remove any unfound coins
+		for (const coinId in this.coins) {
+			if (coinsIdsSeen.has(coinId)) {
+				continue;
+			}
+			delete this.coins[coinId];
+			console.log(`Delete coin ${coinId}`);
+		}
+	}
+
+	updatePlayers(players) {
+
 	}
 
 	/**
@@ -90,7 +119,11 @@ export default class World {
 
 		context.translate(Math.round(-this.cameraPos.x), Math.round(-this.cameraPos.y));
 
-		const toRender = [...this.coins, ...this.others, this.player];
+		const toRender = [
+			...Object.values(this.coins),
+			...Object.values(this.others),
+			this.player,
+		];
 		toRender.sort((a, b) => a.maxY - b.maxY);
 
         for (const r of toRender) {

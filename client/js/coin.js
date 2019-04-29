@@ -7,10 +7,17 @@ export class Coin extends Entity {
     constructor() {
         super();
 
+        this.id = -1;
         this.width = SCALE * 16;
         this.height = SCALE * 16;
 
         this.animCount = 40 * Math.random();
+    }
+
+    loadFromData(data) {
+        this.x = data.x;
+        this.y = data.y;
+        this.id = data.id;
     }
 
     update(dt) {
