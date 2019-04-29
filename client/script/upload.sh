@@ -11,6 +11,9 @@ path=$1
 # TODO: Update HTML, etc so the path gets updated
 
 gsutil -m cp *.html gs://www.jezzamon.com/$path/
-gsutil -m cp -r build/ gs://www.jezzamon.com/$path/
-gsutil -m cp -r css/ gs://www.jezzamon.com/$path/
+gsutil -m cp build/main.bundle.js gs://www.jezzamon.com/$path/build/main.bundle.js
+gsutil -m rsync -r css/ gs://www.jezzamon.com/$path/css/
+gsutil -m rsync -r font/ gs://www.jezzamon.com/$path/font/
+gsutil -m rsync -r sfx/ gs://www.jezzamon.com/$path/sfx/
+gsutil -m rsync -r assets/ gs://www.jezzamon.com/$path/assets/
 gsutil -m acl ch -r -u AllUsers:R gs://www.jezzamon.com/$path
