@@ -44,4 +44,21 @@ export class GameSimulator {
             this.addCoin();
         }
     }
+
+    updatePlayer(playerData) {
+        for (const player of this.players) {
+            if (player.id != playerData.id) {
+                continue;
+            }
+            player.x = playerData.x;
+            player.y = playerData.y;
+            if (playerData.hasOwnProperty('dx') && playerData.hasOwnProperty('dy')) {
+                player.dx = playerData.dx;
+                player.dy = playerData.dy;
+            }
+            return;
+        }
+        // We didn't find this player, so it's a new one. Update the dang thing
+        this.players.push(playerData);
+    }
 }

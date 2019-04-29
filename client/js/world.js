@@ -12,6 +12,7 @@ export default class World {
         this.coins = {};
 		this.others = {};
 		this.player = new Player(this);
+		this.player.id = Math.floor(100000000 * Math.random());
 		this.player.name = "Me";
 		this.cameraPos = {x: 0, y: 0};
 
@@ -63,6 +64,8 @@ export default class World {
 		this.player.desiredPoint = localClickPoint;
 
 		this.checkFightClick(localClickPoint);
+
+		window.socket.emit('player-update', this.player.getUpdateData());
 	}
 
 	checkFightClick(localClickPoint) {
@@ -84,19 +87,21 @@ export default class World {
 
 		// Potentially add new coins
 		for (const coinData of coins) {
-			coinsIdsSeen.add(coinData.id.toString());
+			coinsIdsSeen.add(parseInt(coinData.id));
 			if (this.coins.hasOwnProperty(coinData.id)) {
+				this.coins[coinData.id].x = coinData.x;
+				this.coins[coinData.id].y = coinData.y;
 				continue;
 			}
 			const coin = new Coin();
 			coin.loadFromData(coinData);
-			this.coins[coinData.id.toString()] = coin;
+			this.coins[coinData.id] = coin;
 			console.log(`Add coin ${coinData.id}`);
 		}
 
 		// Remove any unfound coins
 		for (const coinId in this.coins) {
-			if (coinsIdsSeen.has(coinId)) {
+			if (coinsIdsSeen.has(parseInt(coinId))) {
 				continue;
 			}
 			delete this.coins[coinId];
@@ -105,7 +110,36 @@ export default class World {
 	}
 
 	updatePlayers(players) {
+		const playerIdsSeen = new Set();
 
+		// Potentially add new coins
+		for (const playerData of players) {
+			playerIdsSeen.add(parseInt(playerData.id));
+
+			if (this.player.id == playerData.id) {
+				continue;
+			}
+
+			if (this.others.hasOwnProperty(playerData.id)) {
+				// ? Don't update x and y here I guess?
+				this.others[playerData.id].updateFromData(playerData);
+				continue;
+			}
+
+			const player = new Player();
+			player.initFromData(playerData);
+			this.others[playerData.id] = player;
+			console.log(`Add player ${playerData.id}`);
+		}
+
+		// Remove any unfound players
+		for (const playerId in this.others) {
+			if (playerIdsSeen.has(parseInt(playerId))) {
+				continue;
+			}
+			delete this.others[playerId];
+			console.log(`Delete player ${playerId}`);
+		}
 	}
 
 	/**

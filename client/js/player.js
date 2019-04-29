@@ -99,6 +99,34 @@ export class Player extends Entity {
         this.state.update(dt);
     }
 
+    getUpdateData() {
+        const obj = {
+            id: this.id,
+            x: this.x,
+            y: this.y,
+        }
+        if (this.desiredPoint) {
+            obj.dx = this.desiredPoint.x;
+            obj.dy = this.desiredPoint.y;
+        }
+        return obj;
+    }
+
+    initFromData(data) {
+        this.id = parseInt(data.id);
+        this.x = parseInt(data.x);
+        this.y = parseInt(data.y);
+    }
+
+    updateFromData(data) {
+        if (data.hasOwnProperty('dx') && data.hasOwnProperty('dy')) {
+            this.desiredPoint = {
+                x: parseInt(data.dx),
+                y: parseInt(data.dy),
+            }
+        }
+    }
+
     getCoins() {
         for (const coinId in this.world.coins) {
             const coin = this.world.coins[coinId];

@@ -11,15 +11,18 @@ io.on('connection', (socket) => {
     // To start with we don't know their user name
     let username = null;
 
-    socket.on("send-state", (data) => {
-        if (!data.hasOwnProperty("name")) {
+    socket.on("player-update", (data) => {
+        console.log(`player-update: ${JSON.stringify(data)}`);
+        if (!data.hasOwnProperty("id") ||
+            !data.hasOwnProperty("x") ||
+            !data.hasOwnProperty("y")) {
             return;
         }
-        username = data.name.toString();
-        // ? todo: acknowledge?
+        game.updatePlayer(data);
     });
 
     socket.on('take-coin', (data) => {
+        console.log(`take-coin: ${JSON.stringify(data)}`);
         if (!data.hasOwnProperty('id')) {
             return;
         }

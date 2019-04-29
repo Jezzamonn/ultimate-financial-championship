@@ -9,7 +9,10 @@ export default class Controller {
 	}
 
 	update(dt) {
+		this.stateCount++;
+
 		this.world.update(dt);
+
 		if (this.fight) {
 			this.fight.update(dt);
 			if (this.fight.done) {
