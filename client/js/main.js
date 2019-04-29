@@ -5,7 +5,7 @@ let lastTime = null;
 /** @type {!Controller} */
 let controller = null;
 
-const serverAddress = "http://localhost:3000"
+const serverAddress = "http://34.74.40.132:3000"
 let socket = null;
 
 function init() {
