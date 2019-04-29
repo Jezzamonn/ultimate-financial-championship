@@ -48,7 +48,13 @@ function updateState() {
     io.emit('world-update', game.getWorldObject());
 }
 
+function clearPlayers() {
+    game.players = [];
+}
+
 setInterval(updateState, 1000);
+// We need to do this or the server will be overloaded with empty players!
+setInterval(clearPlayers, 60 * 60 * 1000)
 
 // Start listening
 server.listen(3000, () => {
