@@ -34,7 +34,7 @@ export class Player extends Entity {
         this.minDist = 2;
         this.speedDamp = 0.8;
 
-        this.minChallengeDist = 50;
+        this.minChallengeDist = 200;
     }
 
     update(dt) {

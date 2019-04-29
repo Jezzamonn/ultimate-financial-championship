@@ -34,6 +34,15 @@ export default class Controller {
 	worldUpdate(data) {
 		this.world.updateCoins(data.coins);
 		this.world.updatePlayers(data.players);
+
+		const numInHighScore = Math.min(5, data.players.length);
+		const highscores = data.players.slice();
+		highscores.sort((p1, p2) => p2.money - p1.money);
+		for (let i = 0; i < numInHighScore; i++) {
+			const dat = highscores[i];
+			document.querySelector(`#highscore-name-${i+1}`).innerText = dat.name;
+			document.querySelector(`#highscore-score-${i+1}`).innerText = dat.money;
+		}
 	}
 
 	startFight(player1, player2) {

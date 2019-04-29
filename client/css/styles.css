@@ -144,3 +144,12 @@ canvas {
 .content {
 	margin: 20px;
 }
+
+.player-info {
+	float: left;
+}
+
+.world-info {
+	float: right;
+	text-align: right;
+}

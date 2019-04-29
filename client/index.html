@@ -41,11 +41,22 @@
 </head>
 <body>
 	<div class="content">
-		<p>Money = $<span id="money"></span></p>
-		<p>Dividends = <span id="dividends"></span></p>
-		<p><button id="money-button">Get money</button></p>
-		<p><button id="dividend-button">Buy dividend</button></p>
-		<p>Nearby player = <span id="nearby"></span></p>
+		<div class="player-info">
+			<p>Money = $<span id="money"></span></p>
+			<p>Dividends = <span id="dividends"></span></p>
+			<p><button id="money-button">Get money</button></p>
+			<p><button id="dividend-button">Buy dividend</button></p>
+			<p>Nearby player = <span id="nearby"></span></p>
+		</div>
+		<div class="world-info">
+			<p>HighScores</p>
+			<p><span id="highscore-name-1"></span>: $<span id="highscore-score-1"></span></p>
+			<p><span id="highscore-name-2"></span>: $<span id="highscore-score-2"></span></p>
+			<p><span id="highscore-name-3"></span>: $<span id="highscore-score-3"></span></p>
+			<p><span id="highscore-name-4"></span>: $<span id="highscore-score-4"></span></p>
+			<p><span id="highscore-name-5"></span>: $<span id="highscore-score-5"></span></p>
+		</div>
+
 	</div>
 	<div class="world">
 		<canvas id="world-canvas" width="500" height="500"></canvas>
