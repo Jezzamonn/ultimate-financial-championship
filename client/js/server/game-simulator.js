@@ -31,8 +31,8 @@ export class GameSimulator {
     addCoin() {
         const coin = {
             id: this.nextCoinId,
-            x: 800 * (2 * Math.random() - 1),
-            y: 800 * (2 * Math.random() - 1),
+            x: 300 * (2 * Math.random() - 1),
+            y: 300 * (2 * Math.random() - 1),
         };
         this.coins.push(coin);
 
@@ -52,6 +52,8 @@ export class GameSimulator {
             }
             player.x = playerData.x;
             player.y = playerData.y;
+            player.money = playerData.money;
+            player.dividends = playerData.dividends;
             if (playerData.hasOwnProperty('dx') && playerData.hasOwnProperty('dy')) {
                 player.dx = playerData.dx;
                 player.dy = playerData.dy;

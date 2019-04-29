@@ -6,6 +6,8 @@ import { CanvasManager } from "./canvasManager";
 export default class World {
 
 	constructor(controller) {
+		this.chance = new Chance(Math.random)
+
 		this.controller = controller;
 		this.canvasManager = new CanvasManager('#world-canvas');
 
@@ -13,10 +15,8 @@ export default class World {
 		this.others = {};
 		this.player = new Player(this);
 		this.player.id = Math.floor(100000000 * Math.random());
-		this.player.name = "Me";
+		this.player.name = this.chance.name();
 		this.cameraPos = {x: 0, y: 0};
-
-		this.chance = new Chance(1)
 
 		// this.initThings();
 	}
@@ -64,8 +64,6 @@ export default class World {
 		this.player.desiredPoint = localClickPoint;
 
 		this.checkFightClick(localClickPoint);
-
-		window.socket.emit('player-update', this.player.getUpdateData());
 	}
 
 	checkFightClick(localClickPoint) {

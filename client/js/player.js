@@ -102,8 +102,11 @@ export class Player extends Entity {
     getUpdateData() {
         const obj = {
             id: this.id,
+            name: this.name,
             x: this.x,
             y: this.y,
+            money: this.state.money,
+            dividends: this.state.dividends,
         }
         if (this.desiredPoint) {
             obj.dx = this.desiredPoint.x;
@@ -114,8 +117,11 @@ export class Player extends Entity {
 
     initFromData(data) {
         this.id = parseInt(data.id);
+        this.name = data.name;
         this.x = parseInt(data.x);
         this.y = parseInt(data.y);
+        this.state.money = parseInt(data.money);
+        this.state.dividends = parseInt(data.dividends);
     }
 
     updateFromData(data) {
@@ -125,7 +131,9 @@ export class Player extends Entity {
                 y: parseInt(data.dy),
             }
         }
-    }
+        this.state.money = parseInt(data.money);
+        this.state.dividends = parseInt(data.dividends);
+   }
 
     getCoins() {
         for (const coinId in this.world.coins) {

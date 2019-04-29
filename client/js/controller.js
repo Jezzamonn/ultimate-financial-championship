@@ -6,10 +6,12 @@ export default class Controller {
 	constructor() {
 		this.world = new World(this);
 		this.fight = null;
+
+		this.stateCount = 0;
 	}
 
 	update(dt) {
-		this.stateCount++;
+		this.stateCount += dt;
 
 		this.world.update(dt);
 
@@ -20,6 +22,13 @@ export default class Controller {
 				this.fight = null;
 			}
 		}
+		else {
+			if (this.stateCount >= 1) {
+				window.socket.emit('player-update', this.world.player.getUpdateData());
+			}
+		}
+
+		this.stateCount %= 1;
 	}
 
 	worldUpdate(data) {
