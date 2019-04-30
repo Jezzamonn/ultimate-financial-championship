@@ -1,6 +1,10 @@
 # ULTIMATE FINANCIAL CHAMPIONSHIP
 
+![preview.png](client/promo/preview.png)
+
 # [Click to Play! (web)](http://www.jezzamon.com/ufc/index.html)
+
+![collect-coins.gif](client/promo/collect-coins.gif)
 
 ## FEATURING GAMEPLAY FEATURES FROM ALL THE POPULAR GENRES
 
