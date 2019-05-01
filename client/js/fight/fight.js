@@ -151,7 +151,7 @@ export default class Fight {
 			this.player1.state.money += moneyExchanged;
 			this.player2.state.money -= moneyExchanged;
 
-			this.player1.state.dividends = Math.floor(this.player1Data.getValue(price) / price);
+			this.player1.state.dividends += Math.floor(this.player1Data.getValue(price) / price);
 		}
 		else if (this.player1Data.getValue(price) < this.player2Data.getValue(price)) {
 			const moneyExchanged = Math.ceil(this.player1.state.money / 2);
@@ -159,7 +159,7 @@ export default class Fight {
 			this.player2.state.money += moneyExchanged;
 			this.player1.state.money -= moneyExchanged;
 
-			this.player2.state.dividends = Math.floor(this.player2Data.getValue(price) / price);
+			this.player2.state.dividends += Math.floor(this.player2Data.getValue(price) / price);
 		}
 		
 		document.querySelector('.fight').classList.remove('fight-shown');
