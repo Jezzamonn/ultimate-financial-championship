@@ -11,7 +11,11 @@ body {
 	padding: 0;
 	margin: 0;
 	font: 16px "nokiafc22";
-	color: 222034;
+	color: #222034;
+	position: relative;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
 }
 
 canvas {
