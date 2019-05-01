@@ -6,6 +6,9 @@ export class PlayerState {
         
         this.countSeconds = 0;
         this.tickLengthSeconds = 0.5;
+
+        // Empty function to be overwritten elsewhere
+        this.onTick = () => {};
     }
 
     update(dt) {
@@ -20,6 +23,8 @@ export class PlayerState {
     tick() {
         this.money += this.dividends;
         this.updateUI();
+
+        this.onTick();
     }
     
     updateUI() {

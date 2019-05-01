@@ -14,11 +14,38 @@ export default class World {
         this.coins = {};
 		this.others = {};
 		this.player = new Player(this);
+		// Initially we choose a random ID for this player. Large enough it's unlikely to clash.
 		this.player.id = Math.floor(100000000 * Math.random());
 		this.player.name = this.chance.name();
 		this.cameraPos = {x: 0, y: 0};
 
+		this.loadFromSave();
+		this.player.state.onTick = () => this.saveState();
+
 		// this.initThings();
+	}
+
+	loadFromSave() {
+		// Attempt to load from LocalStorage. Let's just try and not care if it doesn't work?
+		if (localStorage.getItem('id')) {
+			this.player.id = parseInt(localStorage.getItem('id'));
+		}
+		if (localStorage.getItem('name')) {
+			this.player.name = localStorage.getItem('name');
+		}
+		if (localStorage.getItem('money')) {
+			this.player.state.money = parseInt(localStorage.getItem('money'));
+		}
+		if (localStorage.getItem('dividends')) {
+			this.player.state.dividends = parseInt(localStorage.getItem('dividends'));
+		}
+	}
+
+	saveState() {
+		localStorage.setItem('id', this.player.id);
+		localStorage.setItem('name', this.player.name);
+		localStorage.setItem('money', this.player.state.money);
+		localStorage.setItem('dividends', this.player.state.dividends);
 	}
 
 	initThings() {
