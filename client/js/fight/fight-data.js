@@ -25,10 +25,10 @@ export class FightData {
         return this.money + price * this.stocks;
     }
     
-    updateUi(price, moneySelector, stockSelector, totalSelector) {
-        document.querySelector(moneySelector).innerText = Math.round(this.money);
-        document.querySelector(stockSelector).innerText = Math.round(this.stocks);
-        document.querySelector(totalSelector).innerText = Math.round(this.getValue(price));
+    updateUi(price, multiple, moneySelector, stockSelector, totalSelector) {
+        document.querySelector(moneySelector).innerText = Math.round(multiple * this.money);
+        document.querySelector(stockSelector).innerText = Math.round(multiple * this.stocks);
+        document.querySelector(totalSelector).innerText = Math.round(multiple * this.getValue(price));
     }
 
     toObject() {

@@ -21,6 +21,11 @@ export default class Fight {
 		this.player1 = player1;
 		this.player2 = player2;
 
+		this.multiple = 1;
+		for (let i = 0; i < player1.state.getLevel(); i++) {
+			this.multiple *= 10;
+		}
+
 		// Data
 		this.stockData = new StockData();
 		// TODO: Pull this from somewhere???
@@ -92,8 +97,8 @@ export default class Fight {
 
 	updateUi(lastTimeCount, timeCount) {
 		const price = this.stockData.getValueAtTime(this.timeAmt);
-		this.player1Data.updateUi(price, '#fight-money', '#fight-stock', '#fight-total');
-		this.player2Data.updateUi(price, '#fight-money2', '#fight-stock2', '#fight-total2');
+		this.player1Data.updateUi(price, this.multiple, '#fight-money', '#fight-stock', '#fight-total');
+		this.player2Data.updateUi(price, this.multiple, '#fight-money2', '#fight-stock2', '#fight-total2');
 
 		if (atBoundary(lastTimeCount, timeCount, -3)) {
 			document.querySelector('.countdown3').classList.remove('hidden-right');
@@ -151,7 +156,7 @@ export default class Fight {
 			this.player1.state.money += moneyExchanged;
 			this.player2.state.money -= moneyExchanged;
 
-			this.player1.state.dividends += Math.floor(this.player1Data.getValue(price) / price);
+			this.player1.state.dividends += Math.floor(this.multiple * this.player1Data.getValue(price) / price);
 		}
 		else if (this.player1Data.getValue(price) < this.player2Data.getValue(price)) {
 			const moneyExchanged = Math.ceil(this.player1.state.money / 2);
@@ -159,7 +164,7 @@ export default class Fight {
 			this.player2.state.money += moneyExchanged;
 			this.player1.state.money -= moneyExchanged;
 
-			this.player2.state.dividends += Math.floor(this.player2Data.getValue(price) / price);
+			this.player2.state.dividends += Math.floor(this.multiple * this.player2Data.getValue(price) / price);
 		}
 		
 		document.querySelector('.fight').classList.remove('fight-shown');
