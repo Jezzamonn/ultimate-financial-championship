@@ -1,23 +1,25 @@
-const SOUND_NAMES = [
-    "click",
-    "coin",
-    "explode",
-    "fight",
-    "lose",
-    "random",
-    "slide",
-    "step",
-    "win",
+const SOUND_INFO = [
+    {name: "click", volume: 0.1},
+    {name: "coin", volume: 0.2},
+    {name: "explode", volume: 0.4},
+    {name: "fight", volume: 0.4},
+    {name: "lose", volume: 0.4},
+    {name: "random", volume: 0.4},
+    {name: "slide", volume: 0.4},
+    {name: "step", volume: 0.4},
+    {name: "win", volume: 0.4},
 ];
 
 const sounds = {};
 
 export function loadSounds() {
-    for (const name of SOUND_NAMES) {
+    for (const soundInfo of SOUND_INFO) {
+        const name = soundInfo.name;
         sounds[name] = [];
         for (let i = 0; i < 30; i++) {
             const audio = new Audio(`sfx/${name}.mp3`);
             audio.oncanplaythrough = () => {
+                audio.volume = soundInfo.volume;    
                 sounds[name].push(audio);
             }
         }
