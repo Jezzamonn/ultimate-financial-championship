@@ -25,8 +25,8 @@ export class Player extends Entity {
 
         this.state = new PlayerState();
 
-        this.width = SCALE * 8;
-        this.height = SCALE * 8;
+        this.width = SCALE * 16;
+        this.height = SCALE * 18;
 
         this.animCount = 10 * Math.random();
         this.animState = "Idle";

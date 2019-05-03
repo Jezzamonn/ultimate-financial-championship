@@ -8,8 +8,8 @@ export class Coin extends Entity {
         super();
 
         this.id = -1;
-        this.width = SCALE * 16;
-        this.height = SCALE * 16;
+        this.width = SCALE * 8;
+        this.height = SCALE * 4;
 
         this.animCount = 40 * Math.random();
     }

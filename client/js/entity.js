@@ -57,8 +57,11 @@ export class Entity {
      * @param {CanvasRenderingContext2D} context 
      */
     render(context) {
+        const startAlpha = context.globalAlpha;
         context.fillStyle = 'blue';
+        context.globalAlpha = 0.5;
         context.fillRect(this.minX, this.minY, this.width, this.height);
+        context.globalAlpha = startAlpha;
     }
 
     isTouching(entity) {
