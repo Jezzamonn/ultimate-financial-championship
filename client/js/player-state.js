@@ -11,6 +11,22 @@ export class PlayerState {
         this.onTick = () => {};
     }
 
+    getLevel() {
+        const levelThresholds = [
+            100, // 0 (white) -> 1 (blue)
+            10000, // 1 (blue) -> 2 (green)
+            1000000, // 2 (green) -> 3 (purple)
+            100000000, // 3 (puple) -> 4 (black)
+            10000000000, // 4 (black) -> 5 (gold)
+        ];
+        for (let i = 0; i < levelThresholds.length; i++) {
+            if (this.money < levelThresholds[i]) {
+                return i;
+            }
+        }
+        return levelThresholds.length;
+    }
+
     update(dt) {
         this.countSeconds += dt;
         if (this.countSeconds > this.tickLengthSeconds) {

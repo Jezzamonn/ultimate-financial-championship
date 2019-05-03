@@ -3,6 +3,12 @@ import { SCALE } from "./constants";
 // Just prescale these, hey
 const IMAGE_NAMES = [
     "player",
+    "player-black",
+    "player-blue",
+    "player-gold",
+    "player-green",
+    "player-purple",
+    "player-white",
     "coin"
 ];
 

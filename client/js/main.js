@@ -28,6 +28,17 @@ function init() {
 	// 	controller.world.player.state.updateUI();
 	// });
 
+	document.addEventListener('keydown', (evt) => {
+		switch (evt.code) {
+			case 'KeyZ':
+				controller.world.player.level--;
+				break;
+			case 'KeyX':
+				controller.world.player.level++;
+				break;
+		}
+	})
+
 	document.addEventListener('mousedown', (evt) => {
 		controller.onMouseClick(getClickCoordinates(evt))
 	});

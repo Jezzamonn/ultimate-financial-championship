@@ -4,6 +4,15 @@ import { Entity } from "./entity";
 import { PlayerState } from "./player-state";
 import { playSound } from "./sounds";
 
+const LEVEL_COLORS = {
+    0: 'white',
+    1: 'blue',
+    2: 'green',
+    3: 'purple',
+    4: 'black',
+    5: 'gold',
+}
+
 export class Player extends Entity {
 
     constructor(world) {
@@ -35,6 +44,8 @@ export class Player extends Entity {
         this.speedDamp = 0.8;
 
         this.minChallengeDist = 200;
+
+        this.level = 0;
     }
 
     update(dt) {
@@ -175,6 +186,7 @@ export class Player extends Entity {
      */
     render(context) {
         const facingString = this.facingRight ? "Right" : "Left";
-        drawAnimation(context, "player", this.animState + facingString, this.animCount, this.midX, this.maxY, 0.5, 1);
+        const levelString = LEVEL_COLORS[this.level];
+        drawAnimation(context, `player-${levelString}`, `${this.animState}${facingString}`, this.animCount, this.midX, this.maxY, 0.5, 1);
     }
 }
