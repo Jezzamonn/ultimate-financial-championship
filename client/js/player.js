@@ -44,8 +44,6 @@ export class Player extends Entity {
         this.speedDamp = 0.8;
 
         this.minChallengeDist = 200;
-
-        this.level = 0;
     }
 
     update(dt) {
@@ -186,7 +184,8 @@ export class Player extends Entity {
      */
     render(context) {
         const facingString = this.facingRight ? "Right" : "Left";
-        const levelString = LEVEL_COLORS[this.level];
+        const level = this.state.getLevel();
+        const levelString = LEVEL_COLORS[level];
         drawAnimation(context, `player-${levelString}`, `${this.animState}${facingString}`, this.animCount, this.midX, this.maxY, 0.5, 1);
     }
 }
