@@ -49,7 +49,19 @@ function updateState() {
 }
 
 function clearPlayers() {
-    game.players = [];
+    // Instead of just clearing it, we keep the top 5 so they stay in the
+    // highscores, but then we update those to be really far away.
+    //
+    // It might look weird if you're watching at that moment AND one of these
+    // best players is still playing but it doesn't happen often.
+    game.players.sort((a, b) => a.money - b.money);
+    game.players = game.players.slice(0, 5);
+    for (const player of game.players) {
+        player.x = 100000;
+        player.y = 100000;
+        player.dx = 100000;
+        player.dy = 100000;
+    }
 }
 
 setInterval(updateState, 1000);
