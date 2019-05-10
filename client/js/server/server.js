@@ -54,7 +54,7 @@ function clearPlayers() {
     //
     // It might look weird if you're watching at that moment AND one of these
     // best players is still playing but it doesn't happen often.
-    game.players.sort((a, b) => a.money - b.money);
+    game.players.sort((a, b) => b.money - a.money);
     game.players = game.players.slice(0, 5);
     for (const player of game.players) {
         player.x = 100000;
